@@ -1,0 +1,6 @@
+name: FirelessEnchants
+version: '${project.version}'
+main: com.bobwazheer.plugins.firelessenchants.FirelessEnchants
+api-version: 1.19
+authors: [ BobWazHeer ]
+website: twitch.tv/bobwazheer
