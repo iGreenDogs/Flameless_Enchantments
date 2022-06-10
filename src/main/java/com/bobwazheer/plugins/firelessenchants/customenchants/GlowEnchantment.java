@@ -4,11 +4,14 @@ import com.bobwazheer.plugins.firelessenchants.FirelessEnchants;
 import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.enchantments.EnchantmentTarget;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 
 public class GlowEnchantment extends Enchantment implements Listener {
@@ -20,7 +23,8 @@ public class GlowEnchantment extends Enchantment implements Listener {
             Player player = (Player) e.getDamager();
 
             if (player.getEquipment().getItemInMainHand().getEnchantments().containsKey(Enchantment.getByKey(FirelessEnchants.glowEnchantment.getKey()))) {
-                e.getEntity().setGlowing(true);
+                PotionEffect effect = new PotionEffect(PotionEffectType.GLOWING, 1200, 1);
+                effect.apply((LivingEntity) e.getEntity());
             }
         }
     }
@@ -36,7 +40,7 @@ public class GlowEnchantment extends Enchantment implements Listener {
 
     @Override
     public int getMaxLevel() {
-        return 2;
+        return 1;
     }
 
     @Override

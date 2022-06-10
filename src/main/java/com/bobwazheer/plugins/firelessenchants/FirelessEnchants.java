@@ -1,11 +1,18 @@
 package com.bobwazheer.plugins.firelessenchants;
 
 import com.bobwazheer.plugins.firelessenchants.customenchants.GlowEnchantment;
+import org.bukkit.ChatColor;
 import org.bukkit.NamespacedKey;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandSender;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public final class FirelessEnchants extends JavaPlugin {
@@ -62,5 +69,28 @@ public final class FirelessEnchants extends JavaPlugin {
         if (registered){
 
         }
+    }
+
+    @Override
+    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+
+        if (command.getName().equalsIgnoreCase("flameglow")){
+            if (sender instanceof Player){
+                Player p = (Player) sender;
+                ItemStack item = p.getInventory().getItemInMainHand();
+                item.addEnchantment(FirelessEnchants.glowEnchantment, 1);
+                ItemMeta meta = item.getItemMeta();
+                ArrayList<String> lore = new ArrayList<>();
+                lore.add(ChatColor.GRAY + "Glow");
+                meta.setLore(lore);
+                item.setItemMeta(meta);
+                p.getInventory().setItemInMainHand(item);
+
+            }
+        } else {
+            sender.sendMessage("That enchant does not exist/you entered the command wrong");
+        }
+
+        return true;
     }
 }
